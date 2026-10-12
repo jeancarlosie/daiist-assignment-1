@@ -39,11 +39,13 @@ I dropped MonthlyCharges (R² 0.9988 from the services) and TotalCharges (correl
 Logistic regression suits a binary target and gives the probability the decision rule needs. All 3 implementations minimise average log-loss plus an L2 penalty on the weights, but not the bias, which only sets the overall churn level. C = 0.1 was chosen by validation log-loss and converted for PyTorch as λ = 1 / (C × n training customers). The manual version follows Session 5: raw tensors starting at 0, hand-written sigmoid and log-loss, autograd and a hand-written update. The standard version uses nn.Module with Adam from random weights, adding the penalty by hand because weight_decay would also penalise the bias. As the penalty leaves a single best solution, reaching it from different starts and optimisers is a real test of agreement. Learning rates (1.0 for gradient descent, 0.01 for Adam) were chosen by lowest final training loss.
 
 Test-set results (1,407 customers, threshold 0.24):
-Model	              Accuracy   Precision  Recall   F1       ROC-AUC   Log-loss   Expected net value
-scikit-learn	      0.7292	 0.4947	    0.8690   0.6305   0.8545	0.4069	   $55,268
-Manual PyTorch	      0.7292	 0.4947	    0.8690   0.6305   0.8545    0.4069     $55,268
-Standard PyTorch	  0.7292	 0.4947	    0.8690   0.6305   0.8545    0.4069	   $55,268
-Naive baseline	      0.2658	 0.2658	    1.0000   0.4200   0.5000    0.5791	   $25,846
+
+| Model | Accuracy | Precision | Recall | F1 | ROC-AUC | Log-loss | Expected net value |
+|---|---|---|---|---|---|---|---|
+| scikit-learn | 0.7292 | 0.4947 | 0.8690 | 0.6305 | 0.8545 | 0.4069 | $55,268 |
+| Manual PyTorch | 0.7292 | 0.4947 | 0.8690 | 0.6305 | 0.8545 | 0.4069 | $55,268 |
+| Standard PyTorch | 0.7292 | 0.4947 | 0.8690 | 0.6305 | 0.8545 | 0.4069 | $55,268 |
+| Naive baseline | 0.2658 | 0.2658 | 1.0000 | 0.4200 | 0.5000 | 0.5791 | $25,846 |
 
 The model contacts 87% of churners, and 49% of those contacted churn; the low threshold is deliberate, as a missed churner costs 3.3 months of revenue and a wasted offer one. The baseline gives everyone 26.6%, above the threshold, so it contacts everyone and ranks no better than chance. The model also beats contacting all month-to-month customers ($51,032).
 
@@ -55,4 +57,4 @@ The data is 1 snapshot, so I cannot test the model on future customers; monthly 
 
 ## Generative AI use disclosure
 
-I used Claude entirely for the plots, the Gradio dashboard, and app.py, but when it came to the train.py code, I explored the data myself (churn rate by category and correlations between columns), used Session 5 for inspiration for Manual PyTorch, came up with the feature ideas (log_tenure, contract_months, YES/NO service columns), and then asked Claude whether I had missed anything. The feature set, business framing, split strategy, and choice of threshold metric are my decisions. Finally, for the report, I wrote the analysis and conclusions myself and used Claude to improve readability and help shorten some sections.
+I used Claude entirely for the plots, the Gradio dashboard, and app.py, but when it came to the train.py code, I explored the data myself (churn rate by category and correlations between columns), used Session 5 for inspiration for Manual PyTorch, came up with the feature ideas (log_tenure, contract_months, YES/NO service columns), and then asked Claude whether I had missed anything. The feature set, business framing, split strategy, and choice of threshold metric are my decisions. Finally, for the report, I wrote the analysis and conclusions myself and used Claude to improve readability, help shorten some sections, and create the Markdown table.
