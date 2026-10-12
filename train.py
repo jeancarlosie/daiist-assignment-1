@@ -1,16 +1,6 @@
 """
-train.py — Assignment 1 training pipeline.  Run: uv run python main.py train
- 
-Business problem (full version in REPORT.md)
---------------------------------------------
-Each month a telecom retention team decides which customers to offer one free month to stop them leaving. The model estimates each customer's
-probability of churning; the team contacts everyone above a threshold
- 
-Decisions that follow from this framing
-  1. Target: customers with tenure 0 have not finished a billing cycle, so they cannot have churned yet, and are thus removed
-  2. Split: One row per customer, one snapshot -> Stratified random 60/20/20 split cannot leak the future or repeat a customer
-  3. Regularisation strength is chosen by validation log-loss, because the threshold decision needs accurate probabilities
-  4. The threshold is chosen on validation by maximising the campaign's expected net value, then reported once on test.
+train.py — Assignment 1 training pipeline. Run: uv run python main.py train
+The business framing and the pipeline decisions it drives are explained in REPORT.md
 """
  
 from __future__ import annotations

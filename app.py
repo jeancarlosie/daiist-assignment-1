@@ -1,11 +1,8 @@
 """
-app.py — Assignment 1 Gradio dashboard.  Run: uv run python main.py app
- 
-Loads only what train.py saved and never fits anything. The three models
-predict the saved test set once at startup; the threshold slider only changes
-which decision is read off those probabilities.
+app.py — Assignment 1 Gradio dashboard. Run: uv run python main.py app
+Loads only what train.py saved; nothing is retrained
 """
- 
+
 from __future__ import annotations
  
 import json
